@@ -5,11 +5,11 @@
       <div class="form_conter">
         <div class="item">公司名称<input type="text" placeholder="请输入公司名"></div>
         <div class="item">公司电话<input type="text" placeholder="请输入面试联系人电话"></div>
-        <!-- <view class="section">
-        <view class="section__title">面试时间</view>
-        <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="bindTimeChange">
-          <view class="picker">
-            当前选择: {{time}}
+       <!-- <view class="section">
+  <view class="section__title">时间选择器</view>
+  <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="bindTimeChange">
+    <view class="picker">
+      当前选择: {{time}}
     </view>
   </picker>
 </view> -->
