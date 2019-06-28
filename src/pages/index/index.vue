@@ -16,38 +16,40 @@
 </template>
 <script>
 import QQMapWx from "@/utils/qqMap";
+import {mapState, mapActions} from 'vuex'
 
 export default {
-  data() {
-    return {
-      longitude: "113.324520",
-      latitude: "23.099994"
-    };
+  // data() {
+  //   return {
+  //     longitude: "113.324520",
+  //     latitude: "23.099994"
+  //   };
+  // },
+  computed:{
+    ...mapState({
+      longitude:state=>state.index.longitude,
+      latitude:state=>state.index.latitude
+    })
   },
-  created() {
-    let qqMapsdk = new QQMapWx({
-      key: "X7RBZ-MMOKR-UQEWJ-WSCXC-IVXVK-IFFLL"
-    });
-    let taht = this;
-    wx.getLocation({
-      type: "wgs84",
-      success(res) {
-        console.log('res',res)
-        const latitude = res.latitude;
-        const longitude = res.longitude;
-        const speed = res.speed;
-        const accuracy = res.accuracy;
-      }
-    });
-  
-  },
-  methods: {
+    methods: {
+    ...mapActions({
+      getLocation:'index/getLocation'
+    }),
     clickBtn() {
       wx.navigateTo({
         url: "../addInterview/main"
       });
     }
+  },
+  created() {
+    let qqMapsdk = new QQMapWx({
+      key: "X7RBZ-MMOKR-UQEWJ-WSCXC-IVXVK-IFFLL"
+    });
+    //获取当前位置
+    this.getLocation();
+  
   }
+
 };
 </script>
 
