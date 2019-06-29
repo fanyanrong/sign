@@ -3,18 +3,17 @@
     <form>
       <div class="key">面试信息</div>
       <div class="form_conter">
-        <div class="item">公司名称<input type="text" placeholder="请输入公司名"></div>
-        <div class="item">公司电话<input type="text" placeholder="请输入面试联系人电话"></div>
-       <!-- <view class="section">
-  <view class="section__title">时间选择器</view>
-  <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="bindTimeChange">
-    <view class="picker">
-      当前选择: {{time}}
-    </view>
-  </picker>
-</view> -->
-        <div class="item">面试时间<input type="text" placeholder="请输入面试联系人电话"></div>
-        <div class="item">面试地址<input type="text" placeholder="请选择面试地址" @click="changeAddress"></div>
+        <div class="item">公司名称<input type="text" placeholder="请输入公司名" v-model="viewName" @change="viewName"></div>
+        <div class="item">公司电话<input type="text" placeholder="请输入面试联系人电话" v-model="viewNumber"></div>
+       <view class="section item">
+        <view class="section__title">面试时间</view>
+        <picker mode="time" v-model="time" start="09:01" end="21:01" @change="bindTimeChange">
+          <view class="picker">
+            当前选择: {{time}}
+          </view>
+        </picker>
+      </view>
+        <div class="item">面试地址<input type="text" placeholder="请选择面试地址" @click="changeAddress" v-model="viewAddress"></div>
       </div>
     <div class="key">备注信息</div>
     <div class="textarea">
@@ -26,26 +25,38 @@
 </template>
 <script>
 export default {
-  data(){
+  data() {
     return {
-      time: '12:01'
+      viewName: "",
+      viewNumber: "",
+      viewTime: "",
+      viewAddress: "",
+      time: "12:01"
+    };
+  },
+  methods: {
+     bindTimeChange: function(e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      time: e.detail.value
+    })
+  },
+    changeAddress() {
+      wx.navigateTo({
+        url: "/pages/address/main"
+      });
+    },
+    viewName(e) {
+      console.log(e);
+    },
+    clickSure() {
+      console.log("确认");
     }
-  },
-  methods:{
-  changeAddress(){
-    wx.navigateTo({
-      url: '/pages/address/main'
-    });
-  },
-  clickSure(){
-    console.log('确认')
   }
-  }
-}
+};
 </script>
 
 <style spcoped>
-
 .key {
   font-size: 35rpx;
   background: #eee;
