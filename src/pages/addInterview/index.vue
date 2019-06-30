@@ -3,54 +3,83 @@
     <form>
       <div class="key">面试信息</div>
       <div class="form_conter">
-        <div class="item">公司名称<input type="text" placeholder="请输入公司名" v-model="viewName" @change="viewName"></div>
-        <div class="item">公司电话<input type="text" placeholder="请输入面试联系人电话" v-model="viewNumber"></div>
+        <div class="item">公司名称<input type="text" placeholder="请输入公司名" :value="valueName" @change="viewName"></div>
+        <div class="item">公司电话<input type="text" placeholder="请输入面试联系人电话" :value="valueNumber" @change="viewNumber"></div>
        <view class="section item">
-        <view class="section__title">面试时间</view>
-        <picker mode="time" v-model="time" start="09:01" end="21:01" @change="bindTimeChange">
-          <view class="picker">
-            当前选择: {{time}}
-          </view>
-        </picker>
-      </view>
-        <div class="item">面试地址<input type="text" placeholder="请选择面试地址" @click="changeAddress" v-model="viewAddress"></div>
+  <view class="section__title">面试时间</view>
+  <picker mode="date" :value="valueDate" start="2015-09-01" end="2017-09-01" @change="dateChange">
+    <view class="picker">
+      {{valueDate}}
+    </view>
+  </picker>
+</view>
+        <div class="item">面试地址<input type="text" placeholder="请选择面试地址" :value="valueAddress"
+        @click="changeAddress"
+        ></div>
       </div>
     <div class="key">备注信息</div>
     <div class="textarea">
-      <textarea maxlength="100" placeholder="备注信息(可选,100个字以内)"></textarea>
+      <textarea maxlength="100" placeholder="备注信息(可选,100个字以内)" :value="valueTextarea" @change="getTextarea"></textarea>
     </div>
     </form>
-    <button class="sureBtn" @click="clickSure">确认</button>
+    <button :class="[activeBtn?'activeSureBtn':'sureBtn']" @click="clickSure">确认</button>
   </div> 
 </template>
 <script>
 export default {
   data() {
     return {
-      viewName: "",
-      viewNumber: "",
-      viewTime: "",
-      viewAddress: "",
-      time: "12:01"
+      valueName: "",
+      valueNumber: "",
+      valueDate: "2019-06-30",
+      valueAddress: "",
+      valueTextarea:"",
+      activeBtn:false
     };
   },
+mounted(){
+    if(this.valueName&&this.valueNUmber&&this.valueDate){
+        this.activeBtn=true
+      }else{
+        this.activeBtn=false
+      }
+},
   methods: {
-     bindTimeChange: function(e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
-    this.setData({
-      time: e.detail.value
-    })
-  },
+    //点击切换到地址页面
     changeAddress() {
       wx.navigateTo({
         url: "/pages/address/main"
       });
     },
+    //获取公司名称value
     viewName(e) {
-      console.log(e);
+      this.valueName = e.target.value;
     },
+    //获取公司电话value
+    viewNumber(e) {
+      this.valueNUmber = e.target.value;
+    },
+    //获取面试时间value
+    dateChange(e) {
+      this.valueDate = e.target.value;
+    },
+    //获取textarea备注信息
+    getTextarea(e){
+      this.valueTextarea = e.target.value;
+    console.log(this.valueTextarea)
+    },
+    //点击确认
     clickSure() {
       console.log("确认");
+      console.log('公司名称',this.valueName);
+      console.log('公司电话',this.valueNUmber);
+      console.log('面试时间',this.valueDate);
+      console.log('备注信息',this.valueTextarea);
+      // wx.navigateTo({
+      //   url:'/pages/viewList/main'
+      // })
+      console.log(this.valueName)
+   
     }
   }
 };
@@ -75,7 +104,8 @@ export default {
   color: gray;
   border-bottom: 1px solid #eee;
 }
-.item input {
+.item input,
+.picker {
   margin-left: 40rpx;
 }
 .textarea {
@@ -92,5 +122,8 @@ textarea {
 .sureBtn {
   background: gray;
   color: #fff;
+}
+.activeSureBtn{
+  background: skyblue;
 }
 </style>
