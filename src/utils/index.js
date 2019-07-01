@@ -1,3 +1,5 @@
+import { resolve } from "path";
+
 function formatNumber (n) {
   const str = n.toString()
   return str[1] ? str : `0${str}`
@@ -18,7 +20,56 @@ export function formatTime (date) {
   return `${t1} ${t2}`
 }
 
+
+//获取用户定位
+export function getLocation(){
+  return new Promise((resolve,reject)=>{
+    wx.getLocation({
+      type:'gcj02',
+      success(res){
+        resolve(res)
+      }
+    })
+  })
+}
+
+
+//授权
+export function getAuthor(scope,callback){
+  wx.getSetting({
+    success (res) {
+      console.log('res.authSetting',res.authSetting)
+      if(res.authSetting[scope]){
+        callback();
+      }else{
+        wx.authorize({
+          scope,
+          success:callback,
+          fail:()=>{
+            wx.showModal({
+              title: '亲爱的用户', //提示的标题,
+              content: '同意我们的授权，让我们为你提供更加优质的服务', //提示的内容,
+              showCancel: false, //是否显示取消按钮,
+              confirmText: '去设置', //确定按钮的文字，默认为取消，最多 4 个字符,
+              confirmColor: '#3CC51F',   //确定按钮的文字颜色
+              success: res => {
+                wx.openSetting()
+              }
+            })
+          }
+        })
+      }
+      // res.authSetting = {
+      //   "scope.userInfo": true,
+      //   "scope.userLocation": true
+      // }
+    }
+  })
+}
+
 export default {
   formatNumber,
-  formatTime
+  formatTime,
+  getLocation,
+  getAuthor
 }

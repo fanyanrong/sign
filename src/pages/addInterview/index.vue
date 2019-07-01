@@ -33,17 +33,10 @@ export default {
       valueNumber: "",
       valueDate: "2019-06-30",
       valueAddress: "",
-      valueTextarea:"",
-      activeBtn:false
+      valueTextarea: "",
+      activeBtn: false
     };
   },
-mounted(){
-    if(this.valueName&&this.valueNUmber&&this.valueDate){
-        this.activeBtn=true
-      }else{
-        this.activeBtn=false
-      }
-},
   methods: {
     //点击切换到地址页面
     changeAddress() {
@@ -57,30 +50,56 @@ mounted(){
     },
     //获取公司电话value
     viewNumber(e) {
-      this.valueNUmber = e.target.value;
+      var reg=/^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199|(147))\\d{8}$/
+      this.valueNUmber = reg.test(e.target.value);
     },
     //获取面试时间value
     dateChange(e) {
       this.valueDate = e.target.value;
     },
     //获取textarea备注信息
-    getTextarea(e){
+    getTextarea(e) {
       this.valueTextarea = e.target.value;
-    console.log(this.valueTextarea)
+      console.log(this.valueTextarea);
     },
     //点击确认
     clickSure() {
       console.log("确认");
-      console.log('公司名称',this.valueName);
-      console.log('公司电话',this.valueNUmber);
-      console.log('面试时间',this.valueDate);
-      console.log('备注信息',this.valueTextarea);
-      // wx.navigateTo({
-      //   url:'/pages/viewList/main'
-      // })
-      console.log(this.valueName)
-   
+      console.log("公司名称", this.valueName);
+      console.log("公司电话", this.valueNUmber);
+      console.log("面试时间", this.valueDate);
+      console.log("备注信息", this.valueTextarea);
+
+      console.log(this.valueName);
+
+      wx.request({
+        url: "/sign", 
+        methods:'POST',
+        data: {
+          company:this.valueName,
+          phone:this.valueNUmber,
+          start_time:this.valueDate
+        },
+        header: {
+          "content-type": "application/json" // 默认值
+        },
+        success(res) {
+          console.log(res.data);
+        }
+      });
+
+      //  wx.navigateTo({
+      //     url:'/pages/viewList/main'
+      //   })
     }
+  },
+  mounted() {
+    if (this.valueName && this.valueNUmber && this.valueDate) {
+      this.activeBtn = true;
+    } else {
+      this.activeBtn = false;
+    }
+    console.log(this.activeBtn);
   }
 };
 </script>
@@ -123,7 +142,7 @@ textarea {
   background: gray;
   color: #fff;
 }
-.activeSureBtn{
+.activeSureBtn {
   background: skyblue;
 }
 </style>

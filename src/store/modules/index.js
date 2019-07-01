@@ -1,7 +1,9 @@
 //原始数据
 const state = {
     longitude: "333",
-    latitude: "444"
+    latitude: "444",
+    openid:'',
+    phone:''
 }
 
 //派生数据
@@ -29,6 +31,11 @@ const mutations = {
         state.longitude=payload.longitude
         state.latitude=payload.latitude
 
+    },
+    getCode(state,actions){
+        console.log('state',state,'actions',actions)
+        state.openid=actions.openid
+        state.phone=actions.phone
     }
 }
 

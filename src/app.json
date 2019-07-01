@@ -1,8 +1,9 @@
 {
   "pages": [
-    "pages/addInterview/main",
-    "pages/index/main",
     
+    "pages/index/main",
+    "pages/my/main",
+    "pages/addInterview/main",
     "pages/address/main",
     "pages/viewList/main",
     "pages/counter/main"
