@@ -15,12 +15,12 @@ export default {
     
     wx.login({
       success(res){
-        console.log(res)
+        //console.log(res)
         if(res.code){
           request.post('/user/code2session',{
           code:res.code
         }).then((res)=>{
-          console.log('res...',res)
+          //console.log('res...',res)
           store.commit('index/getCode',{
             openid:res.data.openid,
             phone:res.data.phone
@@ -44,6 +44,10 @@ export default {
 </script>
 
 <style>
+page{
+  width:100%;
+  height:100%;
+}
 .container {
   height: 100%;
   display: flex;

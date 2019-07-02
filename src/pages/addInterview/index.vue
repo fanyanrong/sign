@@ -87,10 +87,10 @@ export default {
           console.log(res.data);
         }
       });
-
-      //  wx.navigateTo({
-      //     url:'/pages/viewList/main'
-      //   })
+      //点击确认跳转到面试列表
+       wx.navigateTo({
+          url:'/pages/viewList/main'
+        })
     }
   },
   mounted() {

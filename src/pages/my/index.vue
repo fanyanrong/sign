@@ -8,7 +8,8 @@
              <span>***********</span>
         </div>
         <ul>
-            <li class="li" v-for="(item,i) in list" :key="i">
+            <li class="li" v-for="(item,i) in list" :key="i"
+            @click="toViewList(i)">
                 <view class="group">
                     <block >
                         <icon type="info" size="20" />
@@ -16,7 +17,9 @@
                     <span>{{item.title}}</span>
                 </view>
                 
-                <span>></span>
+                <span>
+                  <img src="../../../static/images/arrowRight-fill.png" alt="">
+                </span>
             </li>
             
         </ul>
@@ -35,6 +38,17 @@ export default {
         }
       ]
     };
+  },
+  methods:{
+    
+    toViewList(i){
+      //下变为0跳到面试列表
+      if(i==0){
+        wx.navigateTo({
+          url: '/pages/viewList/main'
+        });
+      }
+    }
   }
 };
 </script>
@@ -52,16 +66,16 @@ export default {
 .info p {
   border-radius: 100%;
   background: #fff;
-  width: 55px;
-  height: 55px;
+  width: 70px;
+  height: 70px;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 15px;
 }
 .info img {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
 }
 .li {
   display: flex;
@@ -75,7 +89,12 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.li span {
+.group span {
   margin-left: 20px;
+  font-size: 18px;
+}
+.li>span img{
+  width: 20px;
+  height: 20px;
 }
 </style>

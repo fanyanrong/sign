@@ -30,12 +30,42 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 5,
 			"list": [
 				{
 					"id": -1,
 					"name": "个人中心",
-					"pathName": "pages/my/main"
+					"pathName": "pages/my/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "首页",
+					"pathName": "pages/index/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "添加面试",
+					"pathName": "pages/addInterview/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "面试列表",
+					"pathName": "pages/viewList/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "详情",
+					"pathName": "pages/detail/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "打卡",
+					"pathName": "pages/tocar/main"
 				}
 			]
 		}

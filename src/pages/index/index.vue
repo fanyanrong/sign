@@ -1,15 +1,7 @@
 <template>
   <div class="index">
     <div class="center">
-      <map id="map" 
-      :longitude="longitude" 
-      :latitude="latitude" 
-      scale="14" 
-      subkey="X7RBZ-MMOKR-UQEWJ-WSCXC-IVXVK-IFFLL"
-      show-location
-      style="width:100%;height:100%;"
-     >
-      </map>
+        <Map />
       <div class="icon">
         <img src="../../../static/images/location.png" alt="">
         <img src="../../../static/images/my.png" alt="" @click="toMy">
@@ -19,10 +11,14 @@
   </div>
 </template>
 <script>
+import Map from '../../components/map.vue'
 import QQMapWx from "@/utils/qqMap";
 import {mapState, mapActions} from 'vuex'
 
 export default {
+  Components:{
+    Map
+  },
   // data() {
   //   return {
   //     longitude: "113.324520",
@@ -63,12 +59,8 @@ export default {
 };
 </script>
 
-<style>
-page,
-.index {
-  width: 100%;
-  height: 100%;
-}
+<style lang='scss'>
+
 .index {
   width: 100%;
   height: 100%;
@@ -78,18 +70,26 @@ page,
 .center {
   flex: 1;
   position: relative;
+  map{
+     width: 100%;
+  height: 100%;
+  }
 }
 .icon{
   width: 100%;
+  padding:0 15px;
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   position: absolute;
-  bottom: 40px;
+  bottom: 30px;
   left: 0;
 }
-.icon img{
-  width: 40px;
+.icon{
+  img{
+    width: 40px;
   height: 40px;
+  }
 }
 footer {
   height: 100rpx;

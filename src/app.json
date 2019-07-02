@@ -3,9 +3,11 @@
     
     "pages/index/main",
     "pages/my/main",
+    "pages/detail/main",
     "pages/addInterview/main",
     "pages/address/main",
     "pages/viewList/main",
+    "pages/tocar/main",
     "pages/counter/main"
   ],
   "permission": {
