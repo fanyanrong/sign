@@ -60,7 +60,7 @@ export default {
     //获取textarea备注信息
     getTextarea(e) {
       this.valueTextarea = e.target.value;
-      console.log(this.valueTextarea);
+      //console.log(this.valueTextarea);
     },
     //点击确认
     clickSure() {
@@ -79,12 +79,14 @@ export default {
     }
   },
   mounted() {
+    let address=wx.getStorageSync('address');
+    this.valueAddress=address
     if (this.valueName && this.valueNUmber && this.valueDate) {
       this.activeBtn = true;
     } else {
       this.activeBtn = false;
     }
-    console.log(this.activeBtn);
+    //console.log(this.activeBtn);
   }
 };
 </script>
@@ -111,6 +113,7 @@ export default {
 .item input,
 .picker {
   margin-left: 40rpx;
+  flex: 1;
 }
 .textarea {
   padding: 30rpx 30rpx 40rpx 30rpx;

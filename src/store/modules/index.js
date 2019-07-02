@@ -5,7 +5,8 @@ const state = {
     longitude: "333",
     latitude: "444",
     openid:'',
-    phone:''
+    phone:'',
+    addAddress:''
 }
 
 //派生数据
