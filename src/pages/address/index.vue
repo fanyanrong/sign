@@ -2,10 +2,10 @@
     <div>
         <div class="address">
             <span>北京</span>
-            <input type="text" placeholder="面试地址" :value="valueAddress" @change="address">
+            <input type="text" placeholder="面试地址" :value="valueAddress" @input="address">
         </div>
         <ul>
-            <li v-for="(item) in allAddress" :key="item.id">
+            <li v-for="(item,i) in allAddress" :key="i">
                 <span>{{item.address}}</span>
             </li>
         </ul>
