@@ -1,52 +1,41 @@
 <script>
-// import {getLocation,getAuthor} from './utils/index.js'
-//import action from './api/request.js'
-import request from '@/utils/request'
-import store from '@/store'
+import { login ,getAuth} from "@/server";
+import store from "@/store";
 
 export default {
-  created () {
-    //打开小程序,做定位
-    // getAuthor('scope.userLocation',async()=>{
+  created() {
+   
+    //调用登录获取code
+    wx.login({
+      success: async res => {
+        let data = await login(res.code);
+        //console.log("data", data);
+        store.commit("index/getCode", {
+          openid: data.data.openid,
+          phone: data.data.phone
+        });
+        wx.setStorage({
+          key: "openid",
+          data: data.data.openid
+        });
+      }
+    });
+
+     //打开小程序,做定位
+    // getAuth('scope.userLocation',async()=>{
     //   let location =await getLocation();
     //   wx.setStorageSync('location',location)
+    //   console.log('localtion',localtion)
     // })
-    //调用登录获取code
-    
-    wx.login({
-      success(res){
-        //console.log(res)
-        if(res.code){
-          request.post('/user/code2session',{
-          code:res.code
-        }).then((res)=>{
-          //console.log('res...',res)
-          store.commit('index/getCode',{
-            openid:res.data.openid,
-            phone:res.data.phone
-          })
-          wx.setStorage({
-            key:'openid',
-            data:res.data.openid
-          })
-        })
-        }else{
-          console.log('登录失败'+res.errMsg)
-            wx.showModal({
-              content: '登录失败'//提示的内容
-            })
-        }
-       
-      }
-    })
+
   }
-}
+};
 </script>
 
 <style>
-page{
-  width:100%;
-  height:100%;
+page {
+  width: 100%;
+  height: 100%;
 }
 .container {
   height: 100%;

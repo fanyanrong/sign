@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 5,
+			"current": 6,
 			"list": [
 				{
 					"id": -1,
@@ -65,7 +65,13 @@
 				{
 					"id": -1,
 					"name": "打卡",
-					"pathName": "pages/tocar/main"
+					"pathName": "pages/tocar/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "选择面试地址",
+					"pathName": "pages/address/main"
 				}
 			]
 		}

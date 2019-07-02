@@ -72,21 +72,6 @@ export default {
 
       console.log(this.valueName);
 
-      wx.request({
-        url: "/sign", 
-        methods:'POST',
-        data: {
-          company:this.valueName,
-          phone:this.valueNUmber,
-          start_time:this.valueDate
-        },
-        header: {
-          "content-type": "application/json" // 默认值
-        },
-        success(res) {
-          console.log(res.data);
-        }
-      });
       //点击确认跳转到面试列表
        wx.navigateTo({
           url:'/pages/viewList/main'

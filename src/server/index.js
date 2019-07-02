@@ -1,4 +1,4 @@
-import request from './utils/request';
+import request from '@/utils/request';
 
 //登录接口
 export let login=code=>{
@@ -22,4 +22,6 @@ export let getView=status=>{
 }
 
 //解密用户数据
-export let 
+export let encryptData=parmas=>{
+    return request.post('/user/decrypt',parmas)
+}

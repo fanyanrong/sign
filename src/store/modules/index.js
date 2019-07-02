@@ -1,3 +1,5 @@
+import { privateDecrypt } from "crypto";
+
 //原始数据
 const state = {
     longitude: "333",
@@ -17,11 +19,12 @@ const actions = {
         wx.getLocation({
             type: "wgs84",
             success(res) {
-                console.log('res...',res)
+                //console.log('res...',res)
                 commit('updateLocation',res)
             }
         })
-    }
+    },
+   
 
 }
 
@@ -33,7 +36,7 @@ const mutations = {
 
     },
     getCode(state,actions){
-        console.log('state',state,'actions',actions)
+        //console.log('state',state,'actions',actions)
         state.openid=actions.openid
         state.phone=actions.phone
     }
