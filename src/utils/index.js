@@ -1,11 +1,11 @@
 import { resolve } from "path";
 
-function formatNumber (n) {
+function formatNumber(n) {
   const str = n.toString()
   return str[1] ? str : `0${str}`
 }
 
-export function formatTime (date) {
+export function formatTime(date) {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
   const day = date.getDate()
@@ -22,12 +22,12 @@ export function formatTime (date) {
 
 
 //获取用户定位
-export function getLocation(){
-  return new Promise((resolve,reject)=>{
+export function getLocation() {
+  return new Promise((resolve, reject) => {
     wx.getLocation({
-      type:'gcj02',
-      success(res){
-        resolve(res)
+      type: 'gcj02',
+      success(res) {
+        resolve(res);
       }
     })
   })
@@ -35,17 +35,17 @@ export function getLocation(){
 
 
 //授权
-export function getAuthor(scope,callback){
+export function getAuth(scope, callback) {
   wx.getSetting({
-    success (res) {
-      console.log('res.authSetting',res.authSetting)
-      if(res.authSetting[scope]){
+    success(res) {
+      console.log('res.authSetting', res.authSetting)
+      if (res.authSetting[scope]) {
         callback();
-      }else{
+      } else {
         wx.authorize({
           scope,
-          success:callback,
-          fail:()=>{
+          success: callback,
+          fail: () => {
             wx.showModal({
               title: '亲爱的用户', //提示的标题,
               content: '同意我们的授权，让我们为你提供更加优质的服务', //提示的内容,
@@ -59,10 +59,6 @@ export function getAuthor(scope,callback){
           }
         })
       }
-      // res.authSetting = {
-      //   "scope.userInfo": true,
-      //   "scope.userLocation": true
-      // }
     }
   })
 }
@@ -71,5 +67,5 @@ export default {
   formatNumber,
   formatTime,
   getLocation,
-  getAuthor
+  getAuth
 }

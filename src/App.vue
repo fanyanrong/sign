@@ -1,9 +1,16 @@
 <script>
-import { login ,getAuth} from "@/server";
+import { login } from "@/server";
+import { getLocation ,getAuth} from "@/utils/index.js";
 import store from "@/store";
 
 export default {
   created() {
+     //打开小程序,做定位
+    getAuth('scope.userLocation',async()=>{
+      let location =await getLocation();
+      wx.setStorageSync('location',location)
+      console.log('localtion',localtion)
+    })
    
     //调用登录获取code
     wx.login({
@@ -21,12 +28,7 @@ export default {
       }
     });
 
-     //打开小程序,做定位
-    // getAuth('scope.userLocation',async()=>{
-    //   let location =await getLocation();
-    //   wx.setStorageSync('location',location)
-    //   console.log('localtion',localtion)
-    // })
+    
 
   }
 };
