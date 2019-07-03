@@ -38,7 +38,7 @@ export default {
         qqMapWx.search({
           keyword: this.valueAddress,
           success: res => {
-            console.log(res.data);
+            //console.log(res.data);
             this.allAddress = res.data;
           }
         });
