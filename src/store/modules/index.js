@@ -6,7 +6,8 @@ const state = {
     latitude: "444",
     openid:'',
     phone:'',
-    addAddress:''
+    addAddress:'',
+    detailDate:[]
 }
 
 //派生数据
@@ -34,12 +35,15 @@ const mutations = {
     updateLocation(state,payload){
         state.longitude=payload.longitude
         state.latitude=payload.latitude
-
     },
     getCode(state,actions){
         //console.log('state',state,'actions',actions)
         state.openid=actions.openid
         state.phone=actions.phone
+    },
+    getDetail(state,actions){
+        console.log('state',state)
+        state.detailDate=actions.data
     }
 }
 

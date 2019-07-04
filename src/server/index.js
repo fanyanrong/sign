@@ -12,12 +12,17 @@ export let addView=parmas=>{
     return request.post('/sign',parmas)
 }
 
-//获取面试
+//添加面试详情
+export let viewDetail=id=>{
+    return request.get('/sign',id)
+}
+
+//获取面试列表
 export let getView=status=>{
-    if(status==2){
+    if(status==3){
         return request.get('/sign')
     }else{
-        return request.get('/sign',{status})
+        return request.get('/sign',status)
     }
 }
 

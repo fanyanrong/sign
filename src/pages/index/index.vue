@@ -3,7 +3,7 @@
     <div class="center">
         <Map />
       <div class="icon">
-        <img src="../../../static/images/location.png" alt="">
+        <img src="../../../static/images/location.png" alt="" @click="localtion">
         <img src="../../../static/images/my.png" alt="" @click="toMy">
       </div>
     </div>

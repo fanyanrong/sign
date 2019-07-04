@@ -9,14 +9,14 @@
         </div>
         <ul class="content">
             <li v-for="(item,i) in contentData" :key="i"
-            @click="toDetail">
+            @click="toDetail(i)">
                 <p class="one">
                     <span>{{item.company}}</span>
                     <span>未开始</span>
                 </p>
-                <p class="two">地址{{item.address.address}}</p>
+                <p class="two">地址{{item.address}}</p>
                 <p class="three">
-                    <span>面试时间:{{item.address.address}}</span>
+                    <span>面试时间:{{item.start_time}}</span>
                     <span>未提醒</span>
                 </p>
             </li>
@@ -25,13 +25,16 @@
 </template>
 <script>
 import Fly from "flyio/dist/npm/wx"
+import {viewDetail,getView} from '@/server'
+import store from '@/store'
+
 let fly = new Fly
 
 
 export default {
   data() {
     return {
-      index: 3,
+      index: 0,
       navList: [
         {
           state: "未开始"
@@ -51,8 +54,9 @@ export default {
     };
   },
   methods: {
+  
     //点击导航条改变index和status
-    changeNav(i) {
+     async changeNav(i) {
       this.index = i;
       //console.log("this.index",this.index)
       if (i == 0) {
@@ -64,47 +68,32 @@ export default {
       if (i == 2) {
         this.status = 1;
       }
-
-      fly.interceptors.request.use(request => {
-        let openid = wx.getStorageSync("openid");
-        console.log('openid',openid)
-        if(openid){
-            request.headers["openid"] = openid;
-        }
-        
-        return request;
-      });
-      fly.get("https://sign.jasonandjay.com/sign?status=" + this.status)
-        .then(res => {
-          console.log('不同状态的数据',res.data);
-          this.contentData=res.data.data
-        })
-        .catch(err => {
-          console.log(err);
-        });
-        //获取全部的数据
-      if (i == 3) {
-       fly.interceptors.request.use(request => {
-        let openid = wx.getStorageSync("openid");
-        if(openid){
-            request.headers["openid"] = openid;
-        }
-        
-        return request;
-      });
-        fly.get('https://sign.jasonandjay.com/sign').then((res)=>{
-            console.log('全部',res.data.data)
-            this.contentData=res.data.data
-        }).catch((err)=>{
-            console.log(err)
-        })
+      if(i==3){
+        this.status = 3;
+      }
+      let data=await getView({
+        status: this.status
+      })
+      console.log('data',data)
+      if(data.code==0){
+        this.contentData=data.data
       }
     },
+    
     //点击每个li跳详情
-    toDetail() {
-      wx.navigateTo({
+    async toDetail(i) {
+      let data=await viewDetail({
+        id:this.contentData[i].id
+      })
+      if(data.code==0){
+        wx.navigateTo({
         url: "/pages/detail/main"
       });
+        store.commit('index/getDetail',{
+          data:data.data
+        })
+      }
+      console.log('详情data',data)
     }
   }
 };

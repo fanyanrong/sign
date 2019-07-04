@@ -3,7 +3,13 @@
         <ul class="list">
             <li class="li" v-for="(item,i) in viewInfo" :key="i">
                 <span>{{item.title}}:</span>
-                <span></span>
+                <span>
+                  {{i==0?detailData.address:
+                  i==1?detailData.start_time:
+                  i==2?detailData.phone:
+                  i==3?detailData.remind==-1?"未提醒":"未提醒":
+                  detailData.status==-1?"未开始":"已放弃"}}
+                </span>
             </li>
             <li class="li">
                 <span>取消提醒</span>
@@ -21,9 +27,17 @@
     </div>
 </template>
 <script>
+import {mapState} from 'vuex'
 
 export default {
-  
+  computed:{
+    ...mapState({
+      detailData:state=>{
+        return state.index.detailDate[0]
+        console.log('state',state.index.detailDate)
+      }
+    })
+  },
   data() {
     return {
       viewInfo: [

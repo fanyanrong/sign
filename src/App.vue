@@ -9,7 +9,7 @@ export default {
     getAuth('scope.userLocation',async()=>{
       let location =await getLocation();
       wx.setStorageSync('location',location)
-      console.log('localtion',localtion)
+      //console.log('localtion',localtion)
     })
    
     //调用登录获取code
